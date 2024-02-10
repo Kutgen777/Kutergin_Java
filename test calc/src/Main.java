@@ -1,89 +1,117 @@
-// Press Shift twice to open the Search Everywhere dialog and type `show whitespaces`,
-// then press Enter. You can now see whitespace characters in your code.
+//
+// Source code recreated from a .class file by IntelliJ IDEA
+// (powered by FernFlower decompiler)
+//
+
 import java.util.Scanner;
-import java.lang.Math;
+
 public class Main {
-    public static String calc(String input){
+    public Main() {
+    }
 
-        String[]members=input.split(" ");
-        if (members.length !=3)
-            return "throws Exception";
+    public static String calc(String input) {
+        try {
+            String[] members = input.split(" ");
+            if (members.length != 3) {
+                throw new Exception("формат математической операции не удовлетворяет заданию - два операнда и один оператор (+, -, /, *)");
+            } else {
+                String[] dictionaryList = new String[]{"", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X", "+", "-", "*", "/", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"};
+                int firstMember = -1;
+                int secondMember = -1;
+                int actionMember = -1;
 
-        String []dictionaryList={
-                "throws Exception","I","II","III","IV","V","VI","VII","VIII","IX","X","+","-","*","/",
-                "0","1","2","3","4","5","6","7","8","9","10"};
+                int maxIndex;
+                for(maxIndex = 0; maxIndex < dictionaryList.length; ++maxIndex) {
+                    if (dictionaryList[maxIndex].equals(members[0])) {
+                        firstMember = maxIndex;
+                    }
 
-        int firstMember=-1;
-        int secondMember=-1;
-        int actionMember=-1;
+                    if (dictionaryList[maxIndex].equals(members[2])) {
+                        secondMember = maxIndex;
+                    }
 
-        for (int i=0;i<dictionaryList.length;i++){
+                    if (dictionaryList[maxIndex].equals(members[1])) {
+                        actionMember = maxIndex;
+                    }
+                }
 
-            if(dictionaryList[i].equals(members[0])){
-                firstMember=i;}
+                maxIndex = Math.max(secondMember, firstMember);
+                int minIndex = Math.min(secondMember, firstMember);
+                if (firstMember == -1) {
+                    throw new Exception("формат математической операции не удовлетворяет заданию - два операнда и один оператор (+, -, /, *)");
+                } else if (secondMember == -1) {
+                    throw new Exception("формат математической операции не удовлетворяет заданию - два операнда и один оператор (+, -, /, *)");
+                } else if (actionMember == -1) {
+                    throw new Exception("формат математической операции не удовлетворяет заданию - два операнда и один оператор (+, -, /, *)");
+                } else {
+                    int ret;
+                    if (14 < maxIndex && 14 < minIndex) {
+                        int firstElemInt = firstMember - 15;
+                        ret = secondMember - 15;
+                        String var12;
+                        switch (actionMember) {
+                            case 11:
+                                var12 = Integer.toString(firstElemInt + ret);
+                                break;
+                            case 12:
+                                var12 = Integer.toString(firstElemInt - ret);
+                                break;
+                            case 13:
+                                var12 = Integer.toString(firstElemInt * ret);
+                                break;
+                            case 14:
+                                var12 = Integer.toString(firstElemInt / ret);
+                                break;
+                            default:
+                                throw new Exception("формат математической операции не удовлетворяет заданию - два операнда и один оператор (+, -, /, *)");
+                        }
 
-            if(dictionaryList[i].equals(members[2])){
-                secondMember=i;}
+                        return var12;
+                    } else if (11 > maxIndex && 11 > minIndex) {
+                        String[] romanNubers10 = new String[]{"", "X", "XX", "XXX", "XL", "L", "LX", "LXX", "LXXX", "XC", "C"};
+                        int var10000;
+                        switch (actionMember) {
+                            case 11:
+                                var10000 = firstMember + secondMember;
+                                break;
+                            case 12:
+                                var10000 = firstMember - secondMember;
+                                break;
+                            case 13:
+                                var10000 = firstMember * secondMember;
+                                break;
+                            case 14:
+                                var10000 = firstMember / secondMember;
+                                break;
+                            default:
+                                throw new Exception("формат математической операции не удовлетворяет заданию - два операнда и один оператор (+, -, /, *)");
+                        }
 
-            if(dictionaryList[i].equals(members[1])){
-                actionMember=i;}
+                        ret = var10000;
+                        if (0 >= ret) {
+                            throw new Exception("в римской системе нет отрицательных чисел и 0");
+                        } else {
+                            return romanNubers10[ret / 10] + dictionaryList[ret % 10];
+                        }
+                    } else {
+                        throw new Exception("используются одновременно разные системы счисления");
+                    }
+                }
+            }
+        } catch (Exception var10) {
+            System.out.println(var10);
+            System.exit(1);
+            return "";
         }
-
-        int maxIndex=Math.max(secondMember,firstMember);
-        int minIndex=Math.min(secondMember,firstMember);
-
-
-        if(firstMember ==-1 || secondMember ==-1 || actionMember==-1 ){
-            return "throws Exception";
-        }
-        if((14 < maxIndex && 14 < minIndex)){
-
-            int firstElemInt= firstMember-15;
-
-            int secondElemInt=secondMember-15;
-
-            return switch (actionMember) {
-                case (11) -> Integer.toString(firstElemInt + secondElemInt);
-                case (12) -> Integer.toString(firstElemInt - secondElemInt);
-                case (13) -> Integer.toString(firstElemInt * secondElemInt);
-                case (14) -> Integer.toString(firstElemInt / secondElemInt);
-                default -> "throws Exception";
-            };
-        }
-
-        if((11 > maxIndex && 11 > minIndex)){
-
-            String []romanNubers10={"","X","XX","XXX","XL","L","LX","LXX","LXXX","XC","C"};
-
-            return switch (actionMember) {
-                case (11) -> romanNubers10[(firstMember + secondMember)/10]+dictionaryList[(firstMember + secondMember)%10] ;
-                case (12) -> ((firstMember-secondMember)<0) ? "throws Exception": (romanNubers10[(firstMember - secondMember)/10]+dictionaryList[(firstMember - secondMember)%10]);
-                case (13) -> romanNubers10[(firstMember * secondMember)/10]+dictionaryList[(firstMember * secondMember)%10] ;
-                case (14) -> romanNubers10[(firstMember / secondMember)/10]+dictionaryList[(firstMember / secondMember)%10] ;
-                default -> "throws Exception";
-            };
-        }
-        return "throws Exception";
     }
 
     public static void main(String[] args) {
-
-        //System.out.println(calc("ds"));
-
-        // Press Shift+F10 or click the green arrow button in the gutter to run the code.
-        while (true){
+        while(true) {
             System.out.println("Input:");
             Scanner in = new Scanner(System.in);
             String input = in.nextLine();
-
-            String outString=calc(input);
-
-            if(outString.equals("throws Exception")){
-                System.out.println(outString);
-                return;
-            }
-
-            System.out.println("Output:\n"+outString);
+            String outString = calc(input);
+            System.out.println("Output:\n" + outString);
         }
     }
 }
