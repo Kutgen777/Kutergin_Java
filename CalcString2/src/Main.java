@@ -158,10 +158,13 @@ public class Main {
 
             String[] Members = {"", "", ""};
 
-            int i = 0;
+            int i = 0, asterix = 0; //ищем индекс мат действия за ковычками
             for (; i < Input.length(); i++) {
+                if ('\"'==Input.charAt(i))
+                    asterix++;
 
-                if ('+' == Input.charAt(i) || '-' == Input.charAt(i) || '*' == Input.charAt(i) || '/' == Input.charAt(i))
+
+                if (('+' == Input.charAt(i) || '-' == Input.charAt(i) || '*' == Input.charAt(i) || '/' == Input.charAt(i)) && 0 == asterix%2 )
                     break;
             }
 
